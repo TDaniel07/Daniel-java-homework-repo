@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -9,15 +10,13 @@ public class Ex11 {
         LocalTime priorTime = LocalTime.parse(priorTimeString, format);
         LocalTime currentTime = LocalTime.now();
 
-        int absolutePriorTime = priorTime.toSecondOfDay();
-        int absoluteCurrentTime = currentTime.toSecondOfDay();
 
-        int seconds = absoluteCurrentTime - absolutePriorTime;
-        int minutes = seconds / 60;
-        int hours = minutes / 60;
+        Duration duration = Duration.between(priorTime, currentTime);
 
-        seconds %= 60;
-        minutes %= 60;
+        int hours = duration.toHoursPart();
+        int minutes = duration.toMinutesPart();
+        int seconds = duration.toSecondsPart();
+
 
         return LocalTime.of(hours, minutes, seconds);
     }

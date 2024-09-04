@@ -18,8 +18,8 @@ public class Event {
         this.eventDateTime = eventDateTime;
         this.reminderDateTime = reminderDateTime;
 
-        updateTimeUntilEvent();
-        updateTimeUntilReminder();
+        updateTime(eventDateTime, timeUntilEvent);
+        updateTime(reminderDateTime, timeUntilReminder);
     }
 
     public LocalDateTime getEventDateTime(){
@@ -47,44 +47,14 @@ public class Event {
             System.out.println("Error: the reminder date is set after the event date");
     }
 
-    private void updateTimeUntilEvent(){
+    public void updateTime(LocalDateTime date, Calendar timeUntilDate){
         LocalDateTime currentDateTime = LocalDateTime.now();
-        long seconds, minutes, hours, days;
 
-        Duration duration = Duration.between(currentDateTime, eventDateTime);
+        Duration duration = Duration.between(currentDateTime, date);
 
-        seconds = duration.getSeconds();
-
-        minutes = seconds / 60;
-        hours  = minutes / 60;
-        days = hours / 24;
-
-        minutes %= 60;
-
-        timeUntilEvent.days = days;
-        timeUntilEvent.hours = (int)(hours % 60);
-        timeUntilEvent.minutes = (int)minutes;
-        timeUntilEvent.totalHours = hours;
-    }
-
-    private void updateTimeUntilReminder(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        long seconds, minutes, hours, days;
-
-        Duration duration = Duration.between(currentDateTime, reminderDateTime);
-
-        seconds = duration.getSeconds();
-
-        minutes = seconds / 60;
-        hours  = minutes / 60;
-        days = hours / 24;
-
-        minutes %= 60;
-
-
-        timeUntilReminder.days = days;
-        timeUntilReminder.hours = (int)(hours % 60);
-        timeUntilReminder.minutes = (int)minutes;
-        timeUntilReminder.totalHours = hours;
+        timeUntilDate.days = duration.toDaysPart();
+        timeUntilDate.hours = duration.toHoursPart();
+        timeUntilDate.minutes = duration.toMinutesPart();
+        timeUntilDate.totalHours = duration.toHours();
     }
 }
