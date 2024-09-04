@@ -6,7 +6,7 @@ public class Ex5 {
         if(s1.length() != s2.length())
             return false;
 
-        int[] s1CharFrequency = new int[123]; //puteam folosi un hashmap dar avand in vedere ca sunt cuvinte overhead-ul pentru declararea unui hashmap ar fi fost prea mare
+        int[] s1CharFrequency = new int[128]; //puteam folosi un hashmap dar avand in vedere ca sunt cuvinte overhead-ul pentru declararea unui hashmap ar fi fost prea mare
         StringBuilder s1Chars = new StringBuilder(); //folosesc acest string pentru a evita verificarea tuturor literelor chiar daca sunt in niciunul dintre string-uri
 
         for(int i = 0; i < s1.length(); i++){
