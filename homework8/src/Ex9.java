@@ -10,5 +10,7 @@ public class Ex9 {
         System.out.println();
 
         System.out.println("Decimal number: " + Integer.parseInt(binaryNumber, 2));
+
+        inputScanner.close();
     }
 }

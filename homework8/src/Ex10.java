@@ -56,18 +56,17 @@ class Diary{
             System.out.println("Entered date is not valid");
             return;
         }
-
         LocalDate entryDate = LocalDate.parse(entryDateString, format);
 
-        for(int i = 0; i < diaryList.size(); i++){
-            LocalDate diaryDate = getDiaryDate(i);
-            if(diaryDate.isEqual(entryDate)){
-                diaryList.set(i, diaryDate.format(format) + ":" + newEntryContent);
-                System.out.println("Entry successfully edited");
-                return;
-            }
+        int diaryIndex = findDiaryEntry(entryDate);
+
+        if(diaryIndex == -1){
+            System.out.println("Entered date is not present in diary");
+            return;
         }
-        System.out.println("Entered date is not present in diary");
+
+        diaryList.set(diaryIndex, entryDateString + ":" + newEntryContent);
+        System.out.println("Entry successfully edited");
     }
 
     public void delete(String entryDateString){
@@ -75,23 +74,32 @@ class Diary{
             System.out.println("Entered date is not valid");
             return;
         }
-
         LocalDate entryDate = LocalDate.parse(entryDateString, format);
 
-        for(int i = 0; i < diaryList.size(); i++){
-            LocalDate diaryDate = getDiaryDate(i);
-            if(diaryDate.isEqual(entryDate)){
-                diaryList.remove(i);
-                System.out.println("Entry successfully deleted");
-                return;
-            }
+        int diaryIndex = findDiaryEntry(entryDate);
+
+        if(diaryIndex == -1){
+            System.out.println("Entered date is not present in diary");
+            return;
         }
-        System.out.println("Entered date is not present in diary");
+
+        diaryList.remove(diaryIndex);
+        System.out.println("Entry successfully removed");
     }
 
     public void display(){
         for(int i = diaryList.size() - 1; i >= 0; i--)
             System.out.println(diaryList.get(i));
+    }
+
+    private int findDiaryEntry(LocalDate entryDate){
+        for(int i = 0; i < diaryList.size(); i++){
+            LocalDate diaryDate = getDiaryDate(i);
+            if(diaryDate.isEqual(entryDate)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     private LocalDate getDiaryDate(int index){
@@ -144,6 +152,12 @@ public class Ex10 {
                     String parameters = parsedUserInput[1].trim();
 
                     String[] parsedCommandParameters = parameters.split(" ", 2);
+
+                    if(parsedCommandParameters.length != 2){
+                        System.out.println("you need to provide new diary entry");
+                        continue;
+                    }
+
                     String commandDate = parsedCommandParameters[0].trim();
                     String commandNewEntry = parsedCommandParameters[1].trim();
 
@@ -163,8 +177,8 @@ public class Ex10 {
                 default -> System.out.println("entered command is not valid");
             }
         }
+        inputScanner.close();
     }
-
     public static void show_commands() {
         System.out.println("add <YYYY-MM-DD>:<diary entry> - adds a new entry to the diary");
         System.out.println("edit <YYYY-MM-DD> <new diary entry> - edits an already existing entry");
