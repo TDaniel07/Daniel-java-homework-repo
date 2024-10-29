@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <div class="content">
+            <h1>Recipes app</h1>
+            <ul>
+                <li>
+                    <a th:href="@{/recipes}">recipes</a>
+                </li>
+                <li>
+                    <a th:href="@{/recipe/add}">add recipe</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
