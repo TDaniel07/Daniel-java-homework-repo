@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes</title>
+    <link th:href="@{/css/recipes.css}" rel="stylesheet">
+</head>
+<body>
+<div class="main">
+    <div class="content">
+        <h1>Recipes</h1>
+        <ul class="recipes" th:each="recipe : ${recipes}">
+            <div class="recipe-card">
+                <h2 class="recipe-name" th:text="${recipe.title}"></h2>
+                <ul>
+                    <li>ingredients: <span th:text="${recipe.ingredients}"></span></li>
+                    <li>description: <span th:text="${recipe.description}"></span></li>
+                    <li>preparation steps: <span th:text="${recipe.preparationSteps}"></span></li>
+                    <li>cooking time: <span th:text="${recipe.cookingTime}"></span></li>
+                </ul>
+            </div>
+        </ul>
+        <a th:href="@{/}"><button class="button">home</button></a>
+    </div>
+</div>
+
+</body>
+</html>
